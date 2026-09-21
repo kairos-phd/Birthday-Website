@@ -1,0 +1,8 @@
+{
+  "indexes": [],
+  "fieldOverrides": [
+    { "collectionGroup": "celebrations", "fieldPath": "content", "indexes": [] },
+    { "collectionGroup": "drafts", "fieldPath": "content", "indexes": [] },
+    { "collectionGroup": "photos", "fieldPath": "dataUrl", "indexes": [] }
+  ]
+}

@@ -1,0 +1,5 @@
+@font-face{font-family:'Be Vietnam Pro';src:url('assets/body-regular.ttf') format('truetype');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:'Be Vietnam Pro';src:url('assets/body-semibold.ttf') format('truetype');font-style:normal;font-weight:500 700;font-display:swap}
+body{font-family:'Be Vietnam Pro',Arial,sans-serif}
+button,input,textarea,select{font-family:inherit}
+.letter-paper #letter-copy{font-family:'Be Vietnam Pro',Arial,sans-serif}

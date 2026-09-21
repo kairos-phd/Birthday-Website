@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f9f5ed">
+  <title>Personalize your celebration</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="typography.css">
+  <script type="module" src="editor.js"></script>
+</head>
+<body>
+  <header class="editor-header"><a href="/" class="editor-brand">a little celebration.</a><a href="/" target="_blank" rel="noopener">View published page ↗</a><button id="sign-out" hidden>Sign out</button></header>
+  <main>
+    <section id="auth-panel" class="auth-panel">
+      <h1>Make it<br><em>entirely theirs.</em></h1>
+      <p>Every word. Every photo. Every little memory.<br>Sign in to personalize your celebration.</p>
+      <form id="login-form">
+        <label>Email<input id="email" type="email" autocomplete="username" required></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+        <button class="primary" type="submit" id="login-button">Sign in to edit</button>
+      </form>
+      <button class="link-button" id="reset-password">First visit or forgot password? Send a setup link</button>
+      <p class="help">Use your Firebase owner's email. Only the owner can save or publish.</p>
+      <p id="auth-status" role="status">Connecting securely…</p>
+    </section>
+    <div id="workspace" hidden>
+      <div class="workspace-heading"><div><h1>Your celebration, <em>your words.</em></h1><p>Save privately. Preview the feeling. Publish when it’s ready.</p></div><span id="version-label"></span></div>
+      <div class="editor-toolbar"><span id="save-state" role="status">Loading your draft…</span><div><button id="preview">Preview</button><button id="save-draft">Save draft</button><button class="primary" id="publish">Publish changes</button></div></div>
+      <p id="editor-status" class="editor-status" role="status"></p>
+      <div class="editor-layout">
+        <nav class="editor-nav" aria-label="Editor sections"><a href="#details-section">The birthday person</a><a href="#letter-section">Birthday letter</a><a href="#photos-section">Photos</a><a href="#timeline-section">Timeline</a><a href="#gift-section">Gift & music</a><a href="#copy-section">Every word on the page</a><a href="#text-size-section">Text sizes</a><a href="#backup-section">Backup & restore</a></nav>
+        <form id="content-form" class="content-form">
+          <section id="details-section"><h2>The birthday person</h2><p>Start with the person this little corner of the internet belongs to.</p><div id="details-fields" class="field-grid"></div></section>
+          <section id="letter-section"><h2>A letter, from you</h2><p>Write naturally. Leave a blank line between paragraphs.</p><div id="letter-fields"></div></section>
+          <section id="photos-section"><div class="section-top"><div><h2>Photos worth keeping</h2><p>The first two photos also appear on the landing page. Drag-free reorder controls work on every device.</p></div><button type="button" id="add-photo">Add photo</button></div><p class="help">Up to 30 photos. JPEG, PNG or WebP, up to 20 MB each. Uploads are resized for the web and stay private until published.</p><div id="photo-fields"></div></section>
+          <section id="timeline-section"><div class="section-top"><div><h2>Your story, chapter by chapter</h2><p>Choose your date range and spacing. Add, remove or reorder up to 50 memories; each date can hold several photos.</p></div><button type="button" id="add-memory">Add memory</button></div><div id="timeline-settings" class="field-grid"></div><div id="memory-fields"></div></section>
+          <section id="gift-section"><h2>A surprise & a soundtrack</h2><p>Make the final message and the music feel like you.</p><div id="gift-fields" class="field-grid"></div></section>
+          <section id="copy-section"><h2>Every word on the page</h2><p>Headings, buttons, photo filters, little notes, and messages after a click. Use {recipient} or {fullName} to insert their name automatically.</p><label class="copy-search">Find a piece of text<input id="copy-search" type="search" placeholder="Search headings, labels or current text"></label><div id="copy-fields"></div><p id="copy-empty" hidden>No matching text. Try another word.</p></section>
+          <section id="text-size-section"><h2>Text sizes</h2><p>Set each text or explicit line separately for desktop and mobile (8–160 px). Leave blank for the default; mobile inherits desktop unless set. Lines follow the line breaks you type, not automatic wrapping. Refresh this list after editing text. Preview before publishing.</p><button type="button" id="refresh-text-sizes">Refresh text list</button><label>Find text<input type="search" id="text-size-search"></label><div id="text-size-fields"></div></section>
+          <section id="backup-section"><h2>Keep a copy</h2><p>Download a backup before a big change. Backups include your text and uploaded photos.</p><div class="backup-actions"><button type="button" id="export">Download backup</button><label class="file-button">Import backup<input id="import" type="file" accept="application/json,.json"></label><button type="button" id="restore-live">Restore published version</button></div><p class="help">Importing or restoring changes the editor only. The live page changes when you publish.</p></section>
+        </form>
+      </div>
+    </div>
+  </main>
+  <dialog id="confirm-dialog"><form method="dialog"><h2 id="confirm-title"></h2><p id="confirm-message"></p><div><button value="cancel">Cancel</button><button class="primary" id="confirm-accept" value="confirm">Continue</button></div></form></dialog>
+</body>
+</html>

@@ -1,0 +1,36 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function owner() { return request.auth != null && request.auth.uid == 'REPLACE_WITH_OWNER_UID'; }
+    function photoIds(data) { return data.photoIds is list && data.photoIds.size() <= 30; }
+    match /celebrations/main {
+      allow get: if true;
+      allow create, update: if owner()
+        && request.resource.data.keys().hasOnly(['content', 'photoIds', 'updatedAt', 'revision'])
+        && request.resource.data.content is string && request.resource.data.content.size() <= 250000
+        && photoIds(request.resource.data)
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.revision is int && request.resource.data.revision >= 1;
+    }
+    match /drafts/owner {
+      allow get: if owner();
+      allow create, update: if owner()
+        && request.resource.data.keys().hasOnly(['content', 'photoIds', 'updatedAt', 'baseRevision', 'draftRevision'])
+        && request.resource.data.content is string && request.resource.data.content.size() <= 250000
+        && photoIds(request.resource.data)
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.baseRevision is int && request.resource.data.baseRevision >= 0
+        && request.resource.data.draftRevision is int && request.resource.data.draftRevision >= 1;
+      allow delete: if owner();
+    }
+    match /photos/{photoId} {
+      allow get: if owner() || photoId in get(/databases/$(database)/documents/celebrations/main).data.photoIds;
+      allow create: if owner()
+        && request.resource.data.keys().hasOnly(['dataUrl', 'createdAt'])
+        && request.resource.data.dataUrl is string && request.resource.data.dataUrl.size() <= 800000
+        && request.resource.data.dataUrl.matches('data:image/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+')
+        && request.resource.data.createdAt == request.time;
+      allow delete: if owner() && (!exists(/databases/$(database)/documents/celebrations/main) || !(photoId in get(/databases/$(database)/documents/celebrations/main).data.photoIds));
+    }
+  }
+}
